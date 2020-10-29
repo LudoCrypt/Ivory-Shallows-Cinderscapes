@@ -5,6 +5,7 @@ import java.util.Random;
 import com.terraformersmc.cinderscapes.init.CinderscapesBlocks;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
@@ -20,12 +21,12 @@ public class IvoryShallowsSurfaceBuilder extends SurfaceBuilder<TernarySurfaceCo
 
 	@Override
 	public void generate(Random random, Chunk chunk, Biome biome, int x, int z, int height, double noise,
-			BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed,
+			BlockState netherrack, BlockState lava, int seaLevel, long seed,
 			TernarySurfaceConfig surfaceBlocks) {
 		for (int y = 0; y < 256; y++) {
 			BlockPos pos = new BlockPos(x & 15, y, z & 15);
 			BlockState state = chunk.getBlockState(pos);
-			if (state.getBlock() == defaultBlock.getBlock()) {
+			if (!state.isOf(Blocks.AIR) && !state.isOf(lava.getBlock())) {
 				chunk.setBlockState(pos, CinderscapesBlocks.IVORY_BLOCK.getDefaultState(), false);
 			}
 		}
